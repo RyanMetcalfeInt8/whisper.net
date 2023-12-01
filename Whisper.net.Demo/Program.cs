@@ -68,6 +68,11 @@ async Task FullDetection(Options opt)
     var builder = factory.CreateBuilder()
         .WithLanguage(opt.Language);
 
+    if( opt.OpenVINODevice != null )
+    {
+        builder.WithOpenVINODevice(opt.OpenVINODevice);
+    }
+
     if (opt.Command == "translate")
     {
         builder.WithTranslate();
@@ -99,4 +104,7 @@ public class Options
 
     [Option('g', "ggml", Required = false, HelpText = "Ggml Model type to download (if not exists)", Default = GgmlType.Base)]
     public GgmlType ModelType { get; set; }
+
+    [Option('o', "openvinoDevice", Required = false, HelpText = "OpenVINO Device to use for ", Default = null)]
+    public string? OpenVINODevice { get; set; }
 }

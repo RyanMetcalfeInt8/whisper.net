@@ -44,6 +44,7 @@ function BuildWindowsBase() {
         [Parameter(Mandatory = $true)] [string]$Arch,
         [Parameter(Mandatory = $false)] [bool]$Cublas = $false,
         [Parameter(Mandatory = $false)] [bool]$Clblast = $false,
+		[Parameter(Mandatory = $false)] [bool]$OpenVINO = $false,
         [Parameter(Mandatory = $false)] [string]$Configuration = "Release"
     )
     #if not exist "build" create the directory
@@ -71,6 +72,11 @@ function BuildWindowsBase() {
     if ($Clblast) {
         $options += "-DWHISPER_CLBLAST=1"
         $buildDirectory += "-clblast"
+    }
+	
+	if ($OpenVINO) {
+        $options += "-DWHISPER_OPENVINO=1"
+        $buildDirectory += "-openvino"
     }
 
     $options += "-B"

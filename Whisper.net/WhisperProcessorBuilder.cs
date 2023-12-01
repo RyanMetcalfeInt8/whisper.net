@@ -498,6 +498,21 @@ public class WhisperProcessorBuilder
     }
 
     /// <summary>
+    /// Configures the processor to use the given OpenVINO device.
+    /// </summary>
+    /// <param name="openvino_device">The openvino device to use for encode.</param>
+    /// <returns>An instance to the same builder.</returns>
+    /// <remarks>
+    /// Default value is "en". 
+    /// Example: "en", "ro"
+    /// </remarks>
+    public WhisperProcessorBuilder WithOpenVINODevice(string device)
+    {
+        whisperProcessorOptions.OpenVINODevice = device;
+        return this;
+    }
+
+    /// <summary>
     /// Builds the processor.
     /// </summary>
     /// <returns>The <seealso cref="WhisperProcessor"/> build with these configs.</returns>

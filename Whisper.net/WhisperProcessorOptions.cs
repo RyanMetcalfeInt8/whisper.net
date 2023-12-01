@@ -76,4 +76,6 @@ internal sealed class WhisperProcessorOptions
     public WhisperAbortEventHandler? WhisperAbortEventHandler { get; set; }
 
     public bool ComputeProbabilities { get; set; }
+
+    public string? OpenVINODevice { get; set; }
 }

@@ -83,6 +83,11 @@ public sealed class WhisperProcessor : IAsyncDisposable, IDisposable
         fixed (float* pData = probs)
         {
             var state = NativeMethods.whisper_init_state(currentWhisperContext);
+            if (options.OpenVINODevice != null)
+            {
+                NativeMethods.whisper_state_init_openvino_encoder(currentWhisperContext, state, null, options.OpenVINODevice, null);
+            }
+
             try
             {
                 fixed (float* pSamples = samples)
@@ -138,6 +143,11 @@ public sealed class WhisperProcessor : IAsyncDisposable, IDisposable
         {
 
             var state = NativeMethods.whisper_init_state(currentWhisperContext);
+            if (options.OpenVINODevice != null)
+            {
+                NativeMethods.whisper_state_init_openvino_encoder(currentWhisperContext, state, null, options.OpenVINODevice, null);
+            }
+
             try
             {
                 processingSemaphore.Wait();
@@ -268,7 +278,11 @@ public sealed class WhisperProcessor : IAsyncDisposable, IDisposable
                 segmentIndex = 0;
 
                 var state = NativeMethods.whisper_init_state(currentWhisperContext);
-
+                if(options.OpenVINODevice != null )
+                {
+                    NativeMethods.whisper_state_init_openvino_encoder(currentWhisperContext, state, null, options.OpenVINODevice, null);
+                }
+                
                 try
                 {
                     NativeMethods.whisper_full_with_state(currentWhisperContext, state, whisperParams, (IntPtr)pData, samples.Length);
